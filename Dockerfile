@@ -1,9 +1,9 @@
-FROM ubuntu:18.04
-RUN apt-get -y update
-RUN apt-get install -y apache2 curl
-EXPOSE 80
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y vim
+RUN apt-get install -y nginx
+RUN rm /var/www/html/*
 WORKDIR /var/www/html
-COPY index.html /var/www/html/index.html
-ENTRYPOINT ["/usr/sbin/apache2ctl"]
-CMD ["-D", "FOREGROUND"]
-
+COPY ./case-study-app/ /usr/share/nginx/html
+EXPOSE 80
+CMD /usr/sbin/nginx -g "daemon off;"
